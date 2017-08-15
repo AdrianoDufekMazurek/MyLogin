@@ -1,0 +1,36 @@
+package br.edu.facer.util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class ConexaoUtil {
+	private static ConexaoUtil conexaoUtil;
+	
+	public static ConexaoUtil getInstance(){
+		if(conexaoUtil == null){
+			conexaoUtil = new ConexaoUtil();
+		}
+		return conexaoUtil;
+	}
+	
+	public Connection getConnection() throws ClassNotFoundException, SQLException{
+		Class.forName("com.mysql.jdbc.Driver");
+		
+		String url = "jdbc:mysql://localhost/mylogin";
+        String usuario = "root";
+        String senha = "";
+        Connection con = DriverManager.getConnection(url, usuario, senha);
+		
+		return con;
+	}
+	public static void main(String[] args){
+	try {
+			System.out.println(getInstance().getConnection());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+}
